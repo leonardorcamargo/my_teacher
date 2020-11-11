@@ -1,0 +1,271 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+:root {
+    --menu-color: #181a1b;
+    --main-bg-color: #131313;
+    --panel-color: #222222;
+    --hover-color: #4267b2;
+    --text-color: #a1988c;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: none;
+}
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--main-bg-color);
+    color: #a1988c;
+}
+
+header {
+    padding:28px;
+    background-color: var(--menu-color);
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    border-bottom: 2px solid var(--hover-color);
+}
+
+.links {
+    font-size: 24px;
+}
+
+
+.links a {
+    text-decoration: none;
+    color: white;
+    position: relative;
+    opacity: 0.6;
+
+}
+
+.links a+a {
+    margin-left: 37px;
+}
+
+.links a.active {
+    font-weight: bold;
+    opacity: 1;
+    
+}
+
+.links a:hover {
+    color: var(--hover-color);
+    transition: 500ms;
+    filter: brightness(170%);
+    opacity: 1;
+}
+
+.links a::after {
+    content: "";
+    width: 0;
+    height: 2px;
+    background-color: var(--hover-color);
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+}
+
+.links a:hover::after {
+    width: 100%;
+    transition: width 400ms ease-in-out;
+}
+
+.card {
+    min-height: 400px;
+    width: 800px;
+    margin: 45px auto;
+    background-color: var(--panel-color);
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    box-shadow: 1px 1px 5px 5px rgba(51, 26, 26, 0.5);
+
+    opacity: 0;
+    animation-name: left;
+    animation-duration: 700ms;
+    animation-fill-mode: forwards;
+    transition-timing-function: ease;
+}
+
+@keyframes left {
+    from {
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+.details {
+    padding: 32px;
+}
+
+.details .item {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3 );
+}
+
+.details .item:last-child {
+    border: none;
+}
+
+.details .item div:nth-child(1) {
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 0.8px;
+    font-weight: 500;
+    padding-bottom: 4px;
+}
+
+.details .item div:nth-child(2) {
+    font-size: 18px;
+    font-weight: bold;
+    filter: brightness(150%);
+}
+
+.details h3 {
+    color: var(--hover-color);
+    text-transform: uppercase;
+}
+
+.details span {
+    padding: 6px 10px;
+    margin: 5px 0 0 10px;
+    display: inline-block;
+    border-radius: 7px;
+    background-color: var(--hover-color);
+    color: var(--main-bg-color);
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* FORM */
+
+input,
+select {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    font-size: 17px;
+    padding: 2px;
+    outline: none;
+    color: var(--text-color);
+}
+
+input[type="radio"]{
+    width: initial;
+    margin-right: 8px;
+}
+
+button,
+a.button {
+    padding: 8px 32px;
+    background-color: var(--hover-color);
+    border: none;
+    color: white;
+    border-radius: 3px;
+    margin-top: 32px;
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+a.button {
+    box-sizing: border-box;
+    text-align: center;
+    text-decoration: none;
+}
+
+button#delete {
+    background-color: crimson;
+    cursor: pointer;
+}
+
+div.buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.table-container {
+    display: block;
+    padding: 40px;
+    box-sizing: border-box;
+    width: 900px;
+}
+
+.table-container table {
+    border-spacing: 0;
+}
+
+.table-container thead tr th {
+    text-align: left;
+}
+
+td, th {
+    padding: 16px;
+    border-bottom: 1px solid var(--text-color);
+}
+
+th {
+    text-transform: uppercase;
+    color: #777;
+    font-size: 14px;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr td:first-child {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    align-items: center;
+}
+
+tbody tr td:first-child span {
+    width: 40px;
+    height: 40px;
+    box-sizing: border-box;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    box-shadow: 3px 2px 6px -4px white;
+    border: 2px solid var(--text-color);
+}
+
+.table-container tr td:last-child a,
+.table-container a, .table-container span {
+    background-color: var(--hover-color);
+    padding: 6px 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: white;
+    font-size: 12px;
+    border-radius: 4px;
+    margin-bottom: auto;
+
+}
+
+.table-container span {
+    padding: 4px 8px;
+    box-shadow: 1px 2px 5px -4px white;
+}
+
+.table-container a {
+    margin-bottom: 14px;
+    display: inline-block;
+}
+.table-container a:hover {
+    opacity: 0.8;
+}
+
+.table-container thead tr th:last-child,
+td:last-child {
+    text-align: center;
+}
