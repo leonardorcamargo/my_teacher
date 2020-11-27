@@ -1,13 +1,15 @@
-const Intl = require("intl");
-const { age, date, grade } = require("../../lib/utils");
+const Teacher = require("../models/Teacher");
+const { age, date, grade, graduation } = require("../../lib/utils");
 
 module.exports = {
   index(req, res) {
-    const teachers = data.teachers.map((teacher) => ({
-      ...teacher,
-      grade: grade(teacher.grade),
-    }));
-    return res.render("teachers/index", { teachers });
+    Teacher.all(function (rawTeachers) {
+      const teachers = rawTeachers.map((teacher) => ({
+        ...teacher,
+        subjects_taught: teacher.subjects_taught.split(","),
+      }));
+      return res.render("teachers/index", { teachers });
+    });
   },
   create(req, res) {
     return res.render("teachers/create");
@@ -20,18 +22,35 @@ module.exports = {
         return res.send("Por favor preencha todos os campos");
       }
     }
-    return;
+    Teacher.create(req.body, function (id) {
+      return res.redirect(`/teachers/${id}`);
+    });
   },
   show(req, res) {
-    return res.render("teachers/show");
+    Teacher.find(req.params.id, function (teacher) {
+      teacher.created_at = date(teacher.created_at).format;
+      teacher.age = age(Date.parse(teacher.birth_date));
+      teacher.subjects_taught = teacher.subjects_taught.split(",");
+      teacher.education_level = graduation(teacher.education_level);
+
+      return res.render("teachers/show", { teacher });
+    });
   },
   edit(req, res) {
-    return;
+    Teacher.find(req.params.id, function (teacher) {
+      teacher.birth_date = date(teacher.birth_date).iso;
+
+      return res.render("teachers/edit", { teacher });
+    });
   },
   put(req, res) {
-    return;
+    Teacher.update(req.body, function (id) {
+      return res.redirect(`teachers/${id}`);
+    });
   },
   delete(req, res) {
-    return;
+    Teacher.delete(req.body.id, function () {
+      return res.redirect("teachers/");
+    });
   },
 };
