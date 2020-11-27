@@ -2,7 +2,7 @@
     <img alt="Launchbase" src="https://storage.googleapis.com/golden-wind/bootcamp-launchbase/logo.png" width="200px" />
 </h1>
 <h3 align="center">
-  Desafios Módulo 3 - Controle de Academia
+  Desafios Módulo 3 
 </h3>
 <p align="center">
   <a href="https://luizfdos.github.io/">
