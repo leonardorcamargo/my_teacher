@@ -41,7 +41,7 @@ module.exports = {
     db.query(query, values, function (err, results) {
       if (err) throw `Database Error! ${err}`;
 
-      callback(results.rows[0]);
+      callback(results.rows[0].id);
     });
   },
   find(id, callback) {
