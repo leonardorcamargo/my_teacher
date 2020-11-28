@@ -43,7 +43,7 @@ module.exports = {
       return "Doutorado";
     }
   },
-  grade: function (grade) {
+  convertGrade: function (grade) {
     if (grade == "5EF") {
       return "5º Ano do Ensino Fundamental";
     }
