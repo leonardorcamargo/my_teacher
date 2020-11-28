@@ -9,7 +9,7 @@
     <section class="avatar" style="background: url({{student.avatar_url}})no-repeat center center / cover" ></section>
     <section class="details">
         <form method="POST" action="/students?_method=PUT">
-            <h3>Editar professor</h3>
+            <h3>Editar aluno</h3>
             {% include './fields.njk'%}
             <input type="hidden" name="id" value="{{student.id}}">
         </form>

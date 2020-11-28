@@ -1,13 +1,16 @@
-const { age, date, grade } = require("../../lib/utils");
+const { date, convertGrade, age } = require("../../lib/utils");
 const db = require("../../config/db");
+const Student = require("../models/Student");
 
 module.exports = {
   index(req, res) {
-    const students = data.students.map((student) => ({
-      ...student,
-      grade: grade(student.grade),
-    }));
-    return res.render("students/index", { students });
+    Student.all(function (rawstudents) {
+      const students = rawstudents.map((student) => ({
+        ...student,
+        grade: convertGrade(student.grade),
+      }));
+      return res.render("students/index", { students });
+    });
   },
   create(req, res) {
     return res.render("students/create");
@@ -20,18 +23,34 @@ module.exports = {
         return res.send("Por favor preencha todos os campos");
       }
     }
-    return;
+    Student.create(req.body, function (id) {
+      return res.redirect(`students/${id}`);
+    });
   },
   show(req, res) {
-    return res.render("students/show");
+    Student.find(req.params.id, function (student) {
+      student.birth_date = date(student.birth_date).iso;
+      student.grade = convertGrade(student.grade);
+      student.age = age(student.birth_date);
+
+      return res.render("students/show", { student });
+    });
   },
   edit(req, res) {
-    return;
+    Student.find(req.params.id, function (student) {
+      student.birth_date = date(student.birth_date).iso;
+
+      return res.render("students/edit", { student });
+    });
   },
   put(req, res) {
-    return;
+    Student.update(req.body, function (id) {
+      return res.redirect(`students/${id}`);
+    });
   },
   delete(req, res) {
-    return;
+    Student.delete(req.body.id, function () {
+      return res.redirect("students/");
+    });
   },
 };
