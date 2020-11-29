@@ -13,7 +13,9 @@ module.exports = {
     });
   },
   create(req, res) {
-    return res.render("students/create");
+    Student.teachersSelectOptions(function (options) {
+      return res.render("students/create", { teachersOptions: options });
+    });
   },
   post(req, res) {
     const keys = Object.keys(req.body);
@@ -39,8 +41,12 @@ module.exports = {
   edit(req, res) {
     Student.find(req.params.id, function (student) {
       student.birth_date = date(student.birth_date).iso;
-
-      return res.render("students/edit", { student });
+      Student.teachersSelectOptions(function (options) {
+        return res.render("students/edit", {
+          student,
+          teachersOptions: options,
+        });
+      });
     });
   },
   put(req, res) {
