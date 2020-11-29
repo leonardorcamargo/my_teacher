@@ -3,13 +3,24 @@ const { age, date, grade, graduation } = require("../../lib/utils");
 
 module.exports = {
   index(req, res) {
-    Teacher.all(function (rawTeachers) {
-      const teachers = rawTeachers.map((teacher) => ({
-        ...teacher,
-        subjects_taught: teacher.subjects_taught.split(","),
-      }));
-      return res.render("teachers/index", { teachers });
-    });
+    const { filter } = req.query;
+    if (filter) {
+      Teacher.findBy(filter, function (rawTeachers) {
+        const teachers = rawTeachers.map((teacher) => ({
+          ...teacher,
+          subjects_taught: teacher.subjects_taught.split(","),
+        }));
+        return res.render("teachers/index", { teachers, filter });
+      });
+    } else {
+      Teacher.all(function (rawTeachers) {
+        const teachers = rawTeachers.map((teacher) => ({
+          ...teacher,
+          subjects_taught: teacher.subjects_taught.split(","),
+        }));
+        return res.render("teachers/index", { teachers });
+      });
+    }
   },
   create(req, res) {
     return res.render("teachers/create");

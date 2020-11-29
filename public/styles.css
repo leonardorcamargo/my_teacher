@@ -175,6 +175,11 @@ a.button {
     font-weight: bold;
 }
 
+button:hover,
+a.button:hover, .table-container a:hover {
+    opacity: 0.8;
+}
+
 a.button {
     box-sizing: border-box;
     text-align: center;
@@ -240,7 +245,7 @@ tbody tr td:first-child span {
 }
 
 .table-container tr td:last-child a,
-.table-container a, .table-container span {
+.table-container span {
     background-color: var(--hover-color);
     padding: 6px 16px;
     text-decoration: none;
@@ -257,15 +262,38 @@ tbody tr td:first-child span {
     box-shadow: 1px 2px 5px -4px white;
 }
 
-.table-container a {
-    margin-bottom: 14px;
-    display: inline-block;
-}
-.table-container a:hover {
-    opacity: 0.8;
-}
-
 .table-container thead tr th:last-child,
 td:last-child, div.total_students {
     text-align: center;
 }
+
+/* FILTER */
+
+div.header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    box-sizing: border-box;
+    align-items: center;
+    margin-bottom: 12px;
+}
+div.header form {
+    display: grid;
+    grid-template-columns: 1fr 120px;
+    grid-gap: 5px;
+}
+
+div.header form input {
+    border: 1px solid var(--text-color);
+    padding: 5px;
+    border-radius: 3px;
+}
+
+div.header form button, div.header a {
+    margin: 0px;
+}
+
+div.header a {
+    width: 120px;
+}
+
+
