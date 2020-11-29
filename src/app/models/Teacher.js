@@ -5,8 +5,11 @@ module.exports = {
   all(callback) {
     db.query(
       `
-    SELECT * FROM 
-    teachers ORDER BY name
+    SELECT teachers.*, COUNT(students) AS total_students 
+      FROM  teachers
+      LEFT JOIN students ON (students.teacher_id = teachers.id)
+      GROUP BY teachers.id
+      ORDER BY total_students DESC
     `,
       function (err, results) {
         if (err) throw `DATABASE ERROR! ${err}`;

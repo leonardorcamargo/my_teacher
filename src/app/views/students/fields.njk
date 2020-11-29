@@ -62,7 +62,17 @@
         <input type="number" name="workload" value="{{student.workload}}">
     </div>
 </div>
-
+<div class="item">
+    <div>Aluno de</div>
+    <div>
+        <select name="teacher">
+            <option value="{{teacher.id}}" 
+            {% if teacher_id == teacher.id %}selected{% endif %}>
+                {{teacher.name}}
+            </option>
+        </select>
+    </div>   
+</div>
 
 
 

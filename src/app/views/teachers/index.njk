@@ -7,8 +7,9 @@
   <table width="100%">
     <thead>
       <tr>
-        <th>Aluno</th>
+        <th>Professor</th>
         <th>Acompanhamento</th>
+        <th>Alunos</th>
         <th>Ação</th>
       </tr>
     </thead>
@@ -23,6 +24,11 @@
         {% for subject in teacher.subjects_taught %}
           <span>{{subject}}</span>
         {% endfor %}
+        </td>
+        <td>
+          <div class="total_students">
+            {{teacher.total_students}}
+          </div>
         </td>
         <td>
           <a href="/teachers/{{teacher.id}}">ver</a>

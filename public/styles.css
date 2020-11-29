@@ -266,6 +266,6 @@ tbody tr td:first-child span {
 }
 
 .table-container thead tr th:last-child,
-td:last-child {
+td:last-child, div.total_students {
     text-align: center;
 }
