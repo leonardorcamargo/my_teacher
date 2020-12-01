@@ -5,7 +5,9 @@
     --main-bg-color: #131313;
     --panel-color: #222222;
     --hover-color: #4267b2;
-    --text-color: #a1988c;
+    --text-color: #afa9a0;
+    --secondary-text-color: #a1988c;
+
 }
 
 * {
@@ -17,7 +19,7 @@
 body {
     font-family: 'Roboto', sans-serif;
     background-color: var(--main-bg-color);
-    color: #a1988c;
+    color: var(--text-color)
 }
 
 header {
@@ -25,12 +27,29 @@ header {
     background-color: var(--menu-color);
     width: 100%;
     box-sizing: border-box;
-    text-align: center;
     border-bottom: 2px solid var(--hover-color);
+    display: flex;
+    justify-content: center;
 }
+
+header div.wrapper {
+    padding: 0 5% 0 5%;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1240px;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+header img.logo {
+    width: 220px;
+}
+
 
 .links {
     font-size: 24px;
+    justify-self: center; 
 }
 
 
@@ -39,7 +58,6 @@ header {
     color: white;
     position: relative;
     opacity: 0.6;
-
 }
 
 .links a+a {
@@ -201,7 +219,9 @@ div.buttons {
     display: block;
     padding: 40px;
     box-sizing: border-box;
-    width: 900px;
+    width: 1000px;
+    height: auto;
+    padding-bottom: 100px;
 }
 
 .table-container table {
@@ -214,12 +234,11 @@ div.buttons {
 
 td, th {
     padding: 16px;
-    border-bottom: 1px solid var(--text-color);
+    border-bottom: 1px solid var(--secondary-text-color);
 }
 
 th {
     text-transform: uppercase;
-    color: #777;
     font-size: 14px;
 }
 
@@ -274,7 +293,7 @@ div.header {
     grid-template-columns: 1fr 1fr;
     box-sizing: border-box;
     align-items: center;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 div.header form {
     display: grid;
@@ -283,7 +302,7 @@ div.header form {
 }
 
 div.header form input {
-    border: 1px solid var(--text-color);
+    border: 1px solid var(--secondary-text-color);
     padding: 5px;
     border-radius: 3px;
 }
