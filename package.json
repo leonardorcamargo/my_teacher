@@ -5,7 +5,7 @@
   "scripts": {
     "start": "npm-run-all -p nodemon browsersync",
     "nodemon": "nodemon server.js",
-    "browsersync": "browser-sync start --proxy http://127.0.0.1:5000 --files 'public, src/app/views"
+    "browsersync": "browser-sync start --proxy http://127.0.0.1:5000 --files 'public, src/app/views'"
   },
   "keywords": [],
   "dependencies": {
