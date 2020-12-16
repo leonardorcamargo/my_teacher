@@ -3,24 +3,34 @@ const { age, date, grade, graduation } = require("../../lib/utils");
 
 module.exports = {
   index(req, res) {
-    const { filter } = req.query;
-    if (filter) {
-      Teacher.findBy(filter, function (rawTeachers) {
+    let { filter, page, limit } = req.query;
+    page = page || 1;
+    limit = limit || 5;
+    let offset = limit * (page - 1);
+
+    const params = {
+      filter,
+      page,
+      limit,
+      offset,
+      callback(rawTeachers) {
+        const total = !rawTeachers.lenght ? rawTeachers[0].total : 0;
+        const pagination = {
+          total: Math.ceil(total / limit),
+          page,
+        };
         const teachers = rawTeachers.map((teacher) => ({
           ...teacher,
           subjects_taught: teacher.subjects_taught.split(","),
         }));
-        return res.render("teachers/index", { teachers, filter });
-      });
-    } else {
-      Teacher.all(function (rawTeachers) {
-        const teachers = rawTeachers.map((teacher) => ({
-          ...teacher,
-          subjects_taught: teacher.subjects_taught.split(","),
-        }));
-        return res.render("teachers/index", { teachers });
-      });
-    }
+        return res.render("teachers/index", {
+          teachers,
+          pagination,
+          filter,
+        });
+      },
+    };
+    Teacher.paginate(params);
   },
   create(req, res) {
     return res.render("teachers/create");
