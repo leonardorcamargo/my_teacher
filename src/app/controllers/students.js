@@ -4,13 +4,34 @@ const Student = require("../models/Student");
 
 module.exports = {
   index(req, res) {
-    Student.all(function (rawstudents) {
-      const students = rawstudents.map((student) => ({
-        ...student,
-        grade: convertGrade(student.grade),
-      }));
-      return res.render("students/index", { students });
-    });
+    let { filter, page, limit } = req.query;
+    page = page || 1;
+    limit = limit || 5;
+    let offset = limit * (page - 1);
+
+    const params = {
+      filter,
+      page,
+      limit,
+      offset,
+      callback(rawStudents) {
+        const total = !rawStudents[0] ? 0 : rawStudents[0].total;
+        const pagination = {
+          total: Math.ceil(total / limit),
+          page,
+        };
+        const students = rawStudents.map((student) => ({
+          ...student,
+          grade: convertGrade(student.grade),
+        }));
+        return res.render("students/index", {
+          students,
+          pagination,
+          filter,
+        });
+      },
+    };
+    Student.paginate(params);
   },
   create(req, res) {
     Student.teachersSelectOptions(function (options) {

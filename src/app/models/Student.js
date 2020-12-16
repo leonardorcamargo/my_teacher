@@ -70,7 +70,6 @@ module.exports = {
     WHERE id = $8
 
     `;
-    console.log(data);
     const values = [
       data.avatar_url,
       data.name,
@@ -102,6 +101,42 @@ module.exports = {
   teachersSelectOptions(callback) {
     db.query(`SELECT name, id FROM teachers`, function (err, results) {
       if (err) throw `Database Error! ${err}`;
+      callback(results.rows);
+    });
+  },
+  paginate(params) {
+    const { filter, limit, offset, callback } = params;
+
+    let query = "",
+      filterQuery = "",
+      totalQuery = `(
+        SELECT count(*) FROM students
+      ) AS total`;
+
+    if (filter) {
+      filterQuery = `
+      WHERE students.name ILIKE '%${filter}%'
+      OR students.email ILIKE '%${filter}%'
+      `;
+
+      totalQuery = `(
+        SELECT COUNT(*) FROM students
+        ${filterQuery}
+      ) AS total`;
+    }
+
+    query = `
+    SELECT*, ${totalQuery}
+    FROM students
+    ${filterQuery}
+    `;
+
+    query = `${query}
+    GROUP BY students.id LIMIT $1 OFFSET $2
+       `;
+    db.query(query, [limit, offset], function (err, results) {
+      if (err) throw `Database Error! ${err}`;
+
       callback(results.rows);
     });
   },
