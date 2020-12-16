@@ -67,7 +67,7 @@
             type="radio" 
             name="class_type" 
             value="Presencial" 
-            {% if teacher.class_type == "Presencial" %}
+            {% if (teacher.class_type == "Presencial") or (not teacher.classs_type)%}
                 checked
             {% endif %}
             >
