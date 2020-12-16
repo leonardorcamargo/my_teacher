@@ -14,7 +14,7 @@ module.exports = {
       limit,
       offset,
       callback(rawTeachers) {
-        const total = !rawTeachers.lenght ? rawTeachers[0].total : 0;
+        const total = !rawTeachers[0] ? 0 : rawTeachers[0].total;
         const pagination = {
           total: Math.ceil(total / limit),
           page,
