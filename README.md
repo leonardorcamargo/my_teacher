@@ -8,6 +8,10 @@
   </a>
 </p>
 
+<p align="center">
+  <img alt="Made by LuizFDOS" src="public/logo.svg">
+</p>
+
 
 ## :construction_worker: Como usar 
 - Faça uma cópia deste respositório
